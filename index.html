@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<title>Test</title>
+	<script type="text/javascript" src="./frontend/assets-common/js/angular.min.js"></script>
+	<script type="text/javascript" src="./frontend/assets-common/js/angular-routes.js"></script>
+	<script type="text/javascript" src="./frontend/core-modules/app.js"></script>
+	<script type="text/javascript" src="./frontend/core-modules/app.services.js"></script>
+	<script type="text/javascript" src="./frontend/modules/module/services/module.service.js"></script>
+	<script type="text/javascript" src="./frontend/modules/module/controllers/module.controller.js"></script>
+</head>
+<body>
+	<div class="container" ng-controller="ModuleController">
+
+		<section ng-repeat="module in modules">
+			<script type="text/javascript" ng-src="{{module.module_src}}"></script>
+		</section>
+		
+	</div>
+</body>
+</html>
