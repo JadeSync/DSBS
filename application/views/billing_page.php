@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="./assets/js/angular-routes.js"></script>
 	<script type="text/javascript" src="./assets/js/app.js"></script>
 	<script type="text/javascript" src="./assets/js/billing.controller.js"></script>
+	<script type="text/javascript" src="./assets/js/clock.controller.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() { $("#product_id").select2(); });
@@ -31,10 +32,13 @@
 				  </div>
 				  <div class="panel-body">
 				    <ul class="nav nav-pills">
-					  <li role="presentation" class="active"><a href="#">Billing</a></li>
-					  <li role="presentation"><a href="./inventory">Inventory</a></li>
-					  <li role="presentation"><a href="#">Reporting</a></li>
-					  <li role="presentation"><a href="#">Users</a></li>
+					  	<li role="presentation" class="active"><a href="#">Billing</a></li>
+					  	<li role="presentation"><a href="./inventory">Inventory</a></li>
+					  	<li role="presentation"><a href="#">Reporting</a></li>
+					  	<li role="presentation"><a href="#">Users</a></li>
+					  	<div style="margin-top: 10px; margin-top: -10px; padding-top: 0px;" class="col-md-offset-10 col-md-span-2" ng-controller="ClockController">
+							<h2 style="color:red;">{{ clock }}</h2>
+						</div>
 					</ul>
 				  </div>
 				</div>
