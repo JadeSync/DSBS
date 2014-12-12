@@ -1,0 +1,9 @@
+#new-product {
+
+	padding: 10px;
+	width: 200px;
+}
+
+#new-product:hover {
+	background-color: lightgrey;
+}
