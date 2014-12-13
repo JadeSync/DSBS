@@ -38,8 +38,6 @@ services.factory( 'ModuleDirService', function ( $http ) {
 					dirsFormatted[i] = dirs[i].slice(dirs[i].lastIndexOf('/') + 1);
 				};
 
-				console.log(dirsFormatted);
-
 				return $http({
 					method : 'POST',
 					url: 'backend/modules/getModuleJSON',

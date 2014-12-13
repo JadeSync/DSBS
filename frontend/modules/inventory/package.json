@@ -4,5 +4,5 @@
 	"module_author": "Parikhit P.",
 	"module_controller": "./frontend/modules/inventory/controllers/inventory.controller.js",
 	"module_route": "./frontend/modules/inventory/route/inventory.routes.js",
-	"module_installed_flag": "flase"
+	"module_installed_flag": "false"
 }

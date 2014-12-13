@@ -4,5 +4,5 @@
 	"module_author": "Parikhit P.",
 	"module_controller": "./frontend/modules/module/controllers/module.controller.js",
 	"module_route": "./frontend/modules/module/route/module.routes.js",
-	"module_installed_flag": "flase"
+	"module_installed_flag": "true"
 }

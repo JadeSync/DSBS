@@ -5,8 +5,8 @@
 </script>
 
 <div class="container">
-	<div class="row-fluid" style="margin-left: -30px;">
-		<div class="col-md-8">
+	<div class="row-fluid" style="margin-left: -30px; margin-right: 30px;">
+		<div class="col-md-12">
 			<div class="panel panel-default" style="max-height: 420px; height: 420px;">
 				  <div class="panel-body">
 				  		<h3>Available Modules</h3>
@@ -19,10 +19,14 @@
 								    	<span class="caret"></span>
 								  	</button>
 								  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-								    	<li role="presentation"><a role="menuitem" tabindex="-1">Details</a></li>
+
+								    	<li id="{{module.module_id}}" role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target=".detailsModal" ng-click="setSelected(module.module_id)">Details</a></li>
+
 								    	<li class="divider"></li>
-								    	<li ng-class="module.module_installed_flag > 0 ? 'disabled' : ''" role="presentation"><a role="menuitem" tabindex="-1">Install</a></li>
-								    	<li ng-class="module.module_installed_flag > 0 ? '' : 'disabled'" role="presentation"><a role="menuitem" tabindex="-1">Uninstall</a></li>
+
+								    	<li id="{{module.module_id}}" ng-class="module.module_installed_flag == 'true' ? 'disabled' : ''" role="presentation"><a role="menuitem" tabindex="-1">Install</a></li>
+
+								    	<li id="{{module.module_id}}" ng-class="module.module_installed_flag == 'true' ? '' : 'disabled'" role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target=".uninstallModal" ng-click="selected(module.module_name)">Uninstall</a></li>
 								  	</ul>
 								</div>
 							</div>
@@ -33,4 +37,61 @@
 				</div>
 		</div>
 	</div>
+</div>
+
+
+
+<div class="modal fade detailsModal" tabindex="-1" role="dialog" aria-labelledby="detailsModal" aria-hidden="true" style="width: 100%;">
+  	<div class="modal-dialog modal-md">
+    	<div class="modal-content">
+	    	<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Module Details</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<div class="row-fluid">
+			  			<table class="table table-hover">
+			  				<tr>
+			  					<td>Module ID</td>
+			  					<td>{{moduleSelected.module_id}}</td>
+			  				</tr>
+			  				<tr>
+			  					<td>Module Name</td>
+			  					<td>{{moduleSelected.module_name}}</td>
+			  				</tr>
+			  				<tr>
+			  					<td>Module Author</td>
+			  					<td>{{moduleSelected.module_author}}</td>
+			  				</tr>
+			  				<tr>
+			  					<td>Module Controller</td>
+			  					<td>{{moduleSelected.module_controller}}</td>
+			  				</tr>
+			  				<tr>
+			  					<td>Module Route</td>
+			  					<td>{{moduleSelected.module_route}}</td>
+			  				</tr>
+			  			</table>
+				    </div>
+			  	</div>
+			</div>
+    	</div>
+  	</div>
+</div>
+
+<div class="modal fade uninstallModal" tabindex="-1" role="dialog" aria-labelledby="uninstallModal" aria-hidden="true" style="width: 100%;">
+  	<div class="modal-dialog modal-sm">
+    	<div class="modal-content">
+	    	<div class="panel panel-danger">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title panel-danger">Uninstall Modal</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<div class="row-fluid">
+			  			Are you sure you want to uninstall <b>{{selectedModule}}</b>?
+				    </div>
+			  	</div>
+			</div>
+    	</div>
+  	</div>
 </div>

@@ -27,9 +27,11 @@
 				  	</div>
 				  	<div class="panel-body">
 				  		<section ng-controller="ModuleController">
-						    <ul class="nav nav-pills" ng-repeat="module in modules">
-							  	<li role="presentation" class="active"><a href="#/good">{{module.module_name}}</a></li>						  		
+						    
+						    <ul class="nav nav-pills">
+							  	<li role="presentation" class="active" ng-repeat="module in installedModules"><a href="#/good">{{module.module_name}}</a></li>			  		
 							</ul>
+
 						</section>
 				  	</div>
 				</div>
