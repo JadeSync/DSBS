@@ -1,8 +1,10 @@
-app.controller( 'ModuleController', function ($scope, ModuleService) {
+app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirService) {
 
 	console.log( 'INFO: ModuleController loaded' );
 
 	$scope.modules = [];
+	$scope.moduleDirs = [];
+	$scope.moduleDirsFormatted = [];
 
 	// $scope.modules = ModuleService.getModules();
 
@@ -12,5 +14,12 @@ app.controller( 'ModuleController', function ($scope, ModuleService) {
 		$scope.modules = result;
 		console.log( $scope.modules )
 	});
+
+	var moduleDirDataPromise = ModuleDirService.moduleDirs();
+
+	moduleDirDataPromise.then( function (result) {
+		$scope.moduleDirs = result;
+		
+	})
 
 });

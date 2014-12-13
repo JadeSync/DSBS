@@ -13,10 +13,6 @@
 }
 
 .module-box {
-	height: 60px;
 	width: 100px;
-	background-color: lightblue;
-	padding-top: 20px;
-	padding-left: 25px;
-	font-family: calibri;
+	margin-top: 20px;
 }
