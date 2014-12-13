@@ -8,14 +8,41 @@
 	<script type="text/javascript" src="./frontend/core-modules/app.services.js"></script>
 	<script type="text/javascript" src="./frontend/modules/module/services/module.service.js"></script>
 	<script type="text/javascript" src="./frontend/modules/module/controllers/module.controller.js"></script>
+	<script type="text/javascript" src="./frontend/assets-common/js/jquery.min.js"></script>
+	<script type="text/javascript" src="./frontend/assets-common/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./frontend/modules/module/route/module.routes.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/mystyle.css" />
+
 </head>
 <body>
-	<div class="container" ng-controller="ModuleController">
 
-		<section ng-repeat="module in modules">
-			<script type="text/javascript" ng-src="{{module.module_src}}"></script>
-		</section>
-		
+	<div class="container main-body">
+		<div class="row-fluid">
+			<div class="col-md-12">
+				<div class="panel panel-default">
+				  	<div class="panel-heading">
+				    	<h3 class="panel-title">Department Store Billing System</h3>
+				  	</div>
+				  	<div class="panel-body">
+				  		<section ng-controller="ModuleController">
+						    <ul class="nav nav-pills" ng-repeat="module in modules">
+							  	<li role="presentation" class="active"><a href="#/good">{{module.module_name}}</a></li>						  		
+							</ul>
+						</section>
+				  	</div>
+				</div>
+				
+				<hr />
+
+				<div ng-view>
+					
+				</div>
+
+			</div>
+		</div>
 	</div>
+
 </body>
 </html>

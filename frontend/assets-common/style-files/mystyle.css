@@ -7,3 +7,16 @@
 #new-product:hover {
 	background-color: lightgrey;
 }
+
+.main-body {
+	margin-top: 10px;
+}
+
+.module-box {
+	height: 60px;
+	width: 100px;
+	background-color: lightblue;
+	padding-top: 20px;
+	padding-left: 25px;
+	font-family: calibri;
+}

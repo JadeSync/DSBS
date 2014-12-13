@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="row-fluid" style="margin-left: -30px;">
+		<div class="col-md-8">
+			<div class="panel panel-default" style="max-height: 420px; height: 420px;">
+				  <div class="panel-body">
+				  		<h3>Installed Modules</h3>
+				  		<section ng-repeat="module in modules">
+				  			<div class="dropdown">
+							  	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+							    {{module.module_name}}
+							    	<span class="caret"></span>
+							  	</button>
+							  	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+							    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#" disabled>Install</a></li>
+							    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Uninstall</a></li>
+							    	<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Details</a></li>
+							  	</ul>
+							</div>
+				  		</section>
+				  	</div>
+				  </div>
+				</div>
+		</div>
+	</div>
+</div>

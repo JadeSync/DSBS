@@ -6,9 +6,9 @@ app.controller( 'ModuleController', function ($scope, ModuleService) {
 
 	// $scope.modules = ModuleService.getModules();
 
-	var myDataPromise = ModuleService.modules();
+	var moduleDataPromise = ModuleService.modules();
 
-	myDataPromise.then( function (result) {
+	moduleDataPromise.then( function (result) {
 		$scope.modules = result;
 		console.log( $scope.modules )
 	});
