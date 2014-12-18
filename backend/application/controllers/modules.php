@@ -51,6 +51,73 @@ class Modules extends CI_Controller {
 
 	}
 
+	public function UninstallModule( $module_id = NULL ) 	
+	{
+
+
+		$module_dir = $this->modulesMDL->getModuleDirByID( $module_id );
+		
+		$this->modulesMDL->UninstallModule( $module_id );
+
+		$module_json = read_file('../frontend/modules/'. $module_dir .'/package.json');
+
+		$module_json_decoded = json_decode( $module_json );
+
+		$module_json_decoded->module_installed_flag = 'false';
+
+		// echo json_encode($module_json_decoded);
+
+		if ( ! write_file('../frontend/modules/'. $module_dir .'/package.json', json_encode($module_json_decoded)) ) {
+			echo 'Unable to write file';
+		}
+
+		else {
+			$module_json = read_file('../frontend/modules/'. $module_dir .'/package.json');
+			print_r($module_json);
+		}
+	}
+
+	public function InstallModule( $module_name = Null )
+	{
+
+		$module_json = read_file('../frontend/modules/'. $module_name .'/package.json');
+
+		$module_encoded = json_encode($module_json);
+
+		if( ! $module_encoded ) {
+			echo 'Not a valid json';
+			exit;
+		}
+
+		// print_r(json_decode($module_encoded));
+
+		$status = $this->modulesMDL->InstallModule( json_decode($module_encoded) );
+
+		if ( $status ) {
+
+			$module_json = read_file('../frontend/modules/'. $module_name ."/package.json");
+
+			$module_json_decoded = json_decode( $module_json );
+
+			$module_json_decoded->module_installed_flag = 'true';
+
+			// echo json_encode($module_json_decoded);
+
+			if ( ! write_file('../frontend/modules/'. $module_name ."/package.json", json_encode($module_json_decoded)) ) {
+				echo 'Unable to write file';
+			}
+
+			else {
+				$module_json = read_file('../frontend/modules/'. $module_name ."/package.json");
+				print_r($module_json);
+			}
+		}
+
+		else {
+			echo 'not done';
+		}
+
+	}
 }
 
 /* End of file modules_controller.php */

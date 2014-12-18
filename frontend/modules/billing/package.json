@@ -1,8 +1,1 @@
-{
-	"module_name": "Billing",
-	"module_id": "M04",
-	"module_author": "Parikhit P.",
-	"module_controller": "./frontend/modules/billing/controllers/billing.controller.js",
-	"module_route": "./frontend/modules/billing/route/billing.routes.js",
-	"module_installed_flag": "false"
-}
+{"module_name":"Billing","module_id":"M04","module_author":"Parikhit P.","module_controller":".\/frontend\/modules\/billing\/controllers\/billing.controller.js","module_route":".\/frontend\/modules\/billing\/route\/billing.routes.js","module_installed_flag":"false","module_desc":"This module does all the billing stuff."}

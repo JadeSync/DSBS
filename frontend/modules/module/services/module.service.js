@@ -55,7 +55,48 @@ services.factory( 'ModuleDirService', function ( $http ) {
 
 			}, function ( result ) {
 				console.log('failure');
-			}); 
+			});
 		}
 	}
+});
+
+services.factory( 'ModuleUninstallService', function ( $http ) {
+
+	return {
+		uninstall: function( module_id ) {
+
+			return $http({
+				method: 'GET',
+				url: 'backend/modules/uninstallModule/'+ module_id,
+			}).then( function ( result ) {
+				console.log( result.data );
+				return true;
+			}, function ( err ) {
+				console.log( err );
+				return false;
+			})
+
+		}
+	}
+
+});
+
+services.factory( 'ModuleInstallService', function ($http) {
+
+	return {
+		install: function( module_name ) {
+
+			return $http({
+				method: 'GET',
+				url: 'backend/modules/InstallModule/'+ module_name
+			}).then( function ( result ) {
+				console.log( result.data );
+			}, function ( err ) {
+				console.log( err );
+				return false;
+			});
+
+		}
+	}
+
 });

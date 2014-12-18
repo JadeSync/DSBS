@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="./frontend/modules/module/controllers/module.controller.js"></script>
 	<script type="text/javascript" src="./frontend/assets-common/js/jquery.min.js"></script>
 	<script type="text/javascript" src="./frontend/assets-common/js/bootstrap.min.js"></script>
+
+	<!-- <script type="text/javascript" src="./frontend/assets-common/js/ui-bootstrap-0.12.0.min.js"></script> -->
+
 	<script type="text/javascript" src="./frontend/modules/module/route/module.routes.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/bootstrap.min.css" />
@@ -29,7 +32,7 @@
 				  		<section ng-controller="ModuleController">
 						    
 						    <ul class="nav nav-pills">
-							  	<li role="presentation" class="active" ng-repeat="module in installedModules"><a href="#/good">{{module.module_name}}</a></li>			  		
+							  	<li role="presentation" class="active" ng-repeat="module in installedModules"><a ng-href="#/{{module.module_name}}">{{module.module_name}}</a></li>			  		
 							</ul>
 
 						</section>

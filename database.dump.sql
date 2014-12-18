@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2014 at 03:29 PM
+-- Generation Time: Dec 18, 2014 at 10:30 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -86,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `tbl_module` (
   `module_author` varchar(100) DEFAULT NULL,
   `module_desc` varchar(800) DEFAULT NULL,
   `module_installed_flag` tinyint(1) DEFAULT NULL,
-  `module_controller_name` varchar(70) NOT NULL,
   `module_src` varchar(200) NOT NULL,
   `module_route` varchar(200) NOT NULL,
   PRIMARY KEY (`module_id`),
@@ -97,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `tbl_module` (
 -- Dumping data for table `tbl_module`
 --
 
-INSERT INTO `tbl_module` (`module_id`, `module_name`, `module_author`, `module_desc`, `module_installed_flag`, `module_controller_name`, `module_src`, `module_route`) VALUES
-('M01', 'Module', 'Parikshit Pr.', 'Modules that manages dynamic module loading', 1, 'module.controller.js', './frontend/modules/module/controllers/module.controller.js', './frontend/modules/module/route/module.routes.js');
+INSERT INTO `tbl_module` (`module_id`, `module_name`, `module_author`, `module_desc`, `module_installed_flag`, `module_src`, `module_route`) VALUES
+('M01', 'Module', 'Parikshit Pr.', 'Modules that manages dynamic module loading', 1, './frontend/modules/module/controllers/module.controller.js', './frontend/modules/module/route/module.routes.js');
 
 -- --------------------------------------------------------
 

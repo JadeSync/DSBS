@@ -1,4 +1,4 @@
-app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirService) {
+app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirService, ModuleUninstallService, ModuleInstallService) {
 
 	console.log( 'INFO: ModuleController loaded' );
 
@@ -8,7 +8,8 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 	$scope.moduleSelected = {};
 	$scope.installedModules = [];
 	$scope.selectedModule = null;
-
+	$scope.selectedModuleID = null;
+	$scope.isCollapsed = false;
 	// $scope.modules = ModuleService.getModules();
 
 	var moduleDataPromise = ModuleService.modules();
@@ -39,8 +40,9 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 
 	});
 	
-	$scope.selected = function( module_name ) {
+	$scope.selected = function( module_name, module_id ) {
 		$scope.selectedModule = module_name;
+		$scope.selectedModuleID = module_id;
 	}
 
 	$scope.setSelected = function( id ) {
@@ -58,6 +60,43 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 			}
 		};
 
+	}
+
+	$scope.hideUninstallModal = function () {
+		$('.uninstallModal').modal('hide');
+	}
+
+	$scope.uninstallModule = function ( module_id ) {
+
+		if ( module_id == 'M01' ) {
+			alert("You cannot delete this module.");
+			$scope.hideUninstallModal();	
+			return;
+		}
+
+		console.log('Uninstalling module - '+ $scope.selectedModule );
+		$scope.hideUninstallModal();
+
+		if ( ModuleUninstallService.uninstall( module_id ) ) {
+			console.log("Uninstalled.");
+			window.location = "http://localhost/dsbs/";
+		}
+
+		else {
+			console.log("Uninstallation Failed.");
+		}
+
+	}
+
+	$scope.installModule = function( module_name ) {
+		if ( ModuleInstallService.install( module_name ) ) {
+			console.log("Installed.");
+			window.location = "http://localhost/dsbs";
+		}
+
+		else {
+			console.log("Installation Failed.");
+		}
 	}
 
 });
