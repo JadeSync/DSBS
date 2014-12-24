@@ -1,28 +1,37 @@
-app.controller( 'InventoryController', function($scope) {
+app.controller( 'InventoryController', function( $scope, InventoryService, NewProduct, Categories ) {
+
+	// console.log(InventoryService.test());
 
 	$scope.warehouse = [];
+	$scope.cat = null;
+	$scope.cart = {
+		p_name: '',
+		p_qty: 0,
+		p_unitCost: 0,
+		p_selling: 0,
+		p_user: 'U1'
+	};
 
-	//	Test Data
+	var categories = Categories.getAll();
 
-	$scope.warehouse.push({
-		item: 'AL - Alabama',
-		qty: 200,
-		unit_price: 10,
-		unit_cost: 8,
-	},
-	{
-		item: 'WY - Wyoming',
-		qty: 100,
-		unit_price: 10,
-		unit_cost: 8
-	},
-	{
-		item: 'TX - Texas',
-		qty: 400,
-		unit_price: 12,
-		unit_cost: 7
+	categories.then( function ( result ) {
+		$scope.cat = result;
+		console.log($scope.cat);
 	});
 
 
+	var testData = InventoryService.getProducts();
 
+	testData.then( function (result) {
+		$scope.warehouse = result;
+		console.log($scope.warehouse);
+	});
+
+	$scope.hideModal = function () {
+		$('.addNewProduct').modal('hide');
+	}
+
+	$scope.newProduct = function () {
+		NewProduct.newProduct( $scope.cart );
+	}
 });

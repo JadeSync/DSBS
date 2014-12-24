@@ -1,7 +1,15 @@
-app.config( ['$routeProvider', function ( $routeProvider ) {
+app.config( ['$routeProvider',
+			
+ function ( $routeProvider ) {
 	$routeProvider
-		.when( '/Module', {
+		.when( '/Module', {			
 			templateUrl: './frontend/modules/module/view-partials/main-view.html',
 			controller: 'ModuleController'
+		}).when( '/Inventory', {
+			templateUrl: './frontend/modules/Inventory/view-partials/main-view.html',
+			controller: 'InventoryController'
+		}).when( '/Billing', {
+			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
+			controller: 'BillingController'
 		});
 }]);

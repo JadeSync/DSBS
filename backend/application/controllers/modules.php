@@ -89,8 +89,6 @@ class Modules extends CI_Controller {
 			exit;
 		}
 
-		// print_r(json_decode($module_encoded));
-
 		$status = $this->modulesMDL->InstallModule( json_decode($module_encoded) );
 
 		if ( $status ) {
@@ -101,15 +99,46 @@ class Modules extends CI_Controller {
 
 			$module_json_decoded->module_installed_flag = 'true';
 
-			// echo json_encode($module_json_decoded);
-
 			if ( ! write_file('../frontend/modules/'. $module_name ."/package.json", json_encode($module_json_decoded)) ) {
 				echo 'Unable to write file';
 			}
 
 			else {
-				$module_json = read_file('../frontend/modules/'. $module_name ."/package.json");
-				print_r($module_json);
+ 
+				$module_route = read_file('../frontend/modules/module/route/module.routes.js');
+
+				$module_route_array = explode(';', $module_route);
+
+				$module_route_array[0] = $module_route_array[0] . ".when( '/". ucfirst($module_name) ."', {\n\t\t\t".
+												"templateUrl: './frontend/modules/". ucfirst($module_name) ."/view-partials/main-view.html',\n\t\t\t".
+												"controller: '". ucfirst($module_name) ."Controller'\n\t\t".
+											"})";
+
+				$module_route = implode(';', $module_route_array);
+
+				if ( ! write_file('../frontend/modules/module/route/module.routes.js', $module_route) ){
+					echo 'Unable to create routes.';
+				}
+
+				else {
+					echo 'Routes successfully created.';
+				}
+
+
+
+				$index_html = read_file("../index.html");
+
+				$index_html_array = explode('<dynamicLoads>', $index_html);
+
+				$index_html_array[1] = "\n\t\t<script type='text/javascript' src='./frontend/modules/". $module_name ."/controllers/". $module_name .".controller.js'></script>" . $index_html_array[1];
+				$index_html_array[1] = "\n\t\t<script type='text/javascript' src='./frontend/modules/". $module_name ."/services/". $module_name .".service.js'></script>" . $index_html_array[1];
+				$index_html_array[1] = "\n\t\t<script type='text/javascript' src='./frontend/modules/". $module_name ."/route/". $module_name .".routes.js'></script>" . $index_html_array[1];
+
+				$index_html = implode('<dynamicLoads>', $index_html_array);
+
+				write_file('../index.html', $index_html);
+
+				
 			}
 		}
 

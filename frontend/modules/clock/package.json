@@ -1,8 +1,0 @@
-{
-	"module_name": "Clock",
-	"module_id": "M03",
-	"module_author": "Parikhit P.",
-	"module_controller": "./frontend/modules/clock/controllers/clock.controller.js",
-	"module_route": "./frontend/modules/clock/route/clock.routes.js",
-	"module_installed_flag": "false"
-}

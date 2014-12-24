@@ -91,7 +91,8 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 	$scope.installModule = function( module_name ) {
 		if ( ModuleInstallService.install( module_name ) ) {
 			console.log("Installed.");
-			window.location = "http://localhost/dsbs";
+			// window.location = "http://localhost/dsbs";
+			window.location.reload(true);
 		}
 
 		else {
