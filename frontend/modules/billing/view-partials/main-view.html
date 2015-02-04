@@ -1,14 +1,45 @@
 <!-- <div class="container"> -->
 
-		<div class="row-fluid">
+<script type="text/javascript">
+
+	$(document).ready( function () {
+
+		var callCheckout = function() {
+			// $('#BillingControllerSector').scope().checkout( true );
+			console.log( 'Checkout function called' );
+		}
+
+		var creditflag = false;
+
+		$('#creditflag').bind( 'click', function() {
+			creditflag = ! creditflag;
+		})
+
+		$('#checkout').bind( 'click', function () {
+
+			if( creditflag ) {
+				$('.credit-purchase-modal').modal( 'show' );
+				console.log('Credit Purchase');
+				// $('#BillingControllerSector').scope().checkout( true );
+			}
+
+			else {
+				console.log('Cash Purchase');
+				$('#BillingControllerSector').scope().checkout( false );
+			}
+		});
+	});
+
+</script>
+
+		<div class="row-fluid" id="BillingControllerSector">
 			<div class="col-md-8">
 				<div class="panel panel-default" style="max-height: 420px; height: 420px;">
 				  <div class="panel-body">
 				  	<div class="container">
 				  		<div class="row-fluid">
 				  			<select selectplugin="" ng-model="product_id" id="product_id" style="width: inherit; min-width: 250px;">
-						        <option value="AL">AL - Alabama</option>
-						        <option value="WY">WY - Wyoming</option>
+						        <option  ng-repeat="product in allProducts" value="{{product.p_id}} {{product.p_name}}">{{product.p_name}}</option>
 						    </select>
 						    <input ng-model="qty" min="1" type="number" style="width: 80px;" id="qty" placeholder="Quantity">
 							<button class="btn btn-primary" id="addToCart" ng-click="addToCart()">Add to cart</button>
@@ -26,7 +57,7 @@
 					  				</tr>
 
 					  				<tr ng-repeat="item in cart" item-id="{{item.item}}" ng-click="setSelected($index, this)" ng-class="{selected: $index == selectedRow}">
-					  					<td>{{item.item}}</td>
+					  					<td>{{item.name}}</td>
 					  					<td>{{item.qty}}</td>
 					  					<td>10</td>
 					  					<td>{{item.qty * 10}}</td>
@@ -51,9 +82,15 @@
 			<div class="col-md-4">
 				<div class="panel panel-default" style="max-height: 200px; height: 200px;">
 				  <div class="panel-body">
-				  	<h1 style="color:red; margin: auto;">Rs. {{total_bill}}</h1>
-				  	<img class="{{hiddenOrNot}}" title="Checkout" style="height:64px; width:64px;" src="./frontend/assets-common/images/checkout.png" />
+				  	<h1 class="total-bill" style="color:red; margin: auto;">Rs. {{total_bill}}</h1>
+				  	<img class="{{hiddenOrNot}}" id="checkout" title="Checkout" style="height:64px; width:64px;" src="./frontend/assets-common/images/checkout.png" />
 				  </div>
+
+				  <div class="checkbox" style="margin-left: 5px;">
+				      <label><input type="checkbox" id="creditflag" value="" >Credit Purchase</label>
+				  </div>
+
+
 				</div>
 			</div>
 		</div>
@@ -68,14 +105,15 @@
 	  	<div class="modal-dialog modal-sm">
 	    	<div class="modal-content">
 	      		<div class="row-fluid">
-		  			<select ng-model="product_id_modal" id="product_id_modal" style="width: inherit; padding:10px; min-width: 150px;" required>
-				        <option value="AL">AL - Alabama</option>
-				        <option value="WY">WY - Wyoming</option>
+		  			<select selectplugin="" ng-model="product_id_modal" id="product_id" style="width: inherit; min-width: 150px;">
+				        <option  ng-repeat="product in allProducts" value="{{product.p_id}} {{product.p_name}}">{{product.p_name}}</option>
 				    </select>
-				    <input ng-model="qty_modal" min="1" type="number" style="width: 80px;" id="qty_modal" placeholder="Quantity" required>
-				    <br />
-				    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="validateAndEdit()"/>
-				    <img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModal()"/>
+				    <input ng-model="qty_modal" min="1" type="number" style="width: 80px;" id="qty" placeholder="Quantity">
+
+				    <div class="row-fluid">
+					    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="validateAndEdit()"/>
+					    <img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModal()"/>
+					</div>
 			    </div>
 	    	</div>
 	  	</div>
@@ -89,8 +127,64 @@
 	    	<div class="modal-content">
 	      		<div class="row-fluid">
 		  			<span class="text-muted">Are you sure you want to delete this entry?</span>
-				    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="deleteEntry()"/>
+				    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="deleteEntry(this)"/>
 				    <img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModal()"/>
+			    </div>
+	    	</div>
+	  	</div>
+	</div>
+
+
+
+	<div class="modal fade new-creditor-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+	  	<div class="modal-dialog modal-sm">
+	    	<div class="modal-content">
+	      		<div class="row-fluid">
+		  			<span class="text-muted" style="padding-left: 10px;">Add new Creditor</span> <br /><br />
+
+		  			<div class="creditorsfield">
+
+			  			<input class="form-control" ng-model="creditorName" type="text" style="width: 200px; padding-left: 40px; margin-bottom: 10px;" id="creditorNameTXT" placeholder="Creditor's Name" />
+
+			  			<input class="form-control" ng-model="address" type="text" style="width: 200px; padding-left: 40px; margin-bottom: 10px;" id="addressTXT" placeholder="Creditor's Address" />
+
+			  			<input class="form-control" ng-model="contact" type="text" style="width: 200px; padding-left: 40px; margin-bottom: 10px;" id="contactTXT" placeholder="Creditor's Contact" />
+
+			  			<input class="form-control" ng-model="email" type="text" style="width: 200px; padding-left: 40px; margin-bottom: 10px;" id="emailTXT" placeholder="Creditor's email" />
+
+			  		</div>
+
+				    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="addNewCreditor()"/>
+				    <img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModalAndShowCreditPurchaseModal()"/>
+
+			    </div>
+	    	</div>
+	  	</div>
+	</div>
+
+
+
+	<div class="modal fade credit-purchase-modal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+	  	<div class="modal-dialog modal-sm">
+	    	<div class="modal-content">
+	      		<div class="row-fluid">
+		  			<span class="text-muted" style="padding-left: 10px;">Please select or add a creditor</span> <br /><br />
+
+		  			<select selectplugin="" ng-model="creditor_id" id="creditor_id" style="width: inherit; min-width: 200px; padding-left: 10px;">
+				        <option style="width: inherit; min-width: 200px; padding-left: 10px;" ng-repeat="creditor in creditors" value="{{creditor.creditor_id}}">{{creditor.creditor_name}}</option>
+				    </select> 
+
+				    <img src="./frontend/assets-common/images/plus.png" style="height: 28px; width: 28px;" title="Add New" ng-click="newCreditor()">
+
+					<br /> <br />
+
+				    <input class="form-control" style="margin-left: 10px; width: 190px;" id="duedate" type="date" ng-model="dueDate" />
+
+				    <br />
+
+				    <img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="checkout( true )"/>
+				    <img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModal()"/>
+
 			    </div>
 	    	</div>
 	  	</div>

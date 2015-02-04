@@ -1,7 +1,9 @@
-app.controller('BillingController', function($scope) {
+app.controller('BillingController', function($scope, LoadProduct, Checkout, CreditorInfo, CreditorAdd) {
 
 	$scope.cart = [];
 	$scope.product_id = '';
+	$scope.creditor_id = '';
+	$scope.product_name = '';
 	$scope.qty = 0;
 	$scope.total_bill = 0;
 	$scope.hiddenOrNot = 'hidden';
@@ -10,6 +12,40 @@ app.controller('BillingController', function($scope) {
 	$scope.activeEditID = null;
 	$scope.product_id_modal = '';
 	$scope.qty_modal = null;
+	$scope.allProducts = null;
+	$scope.clicked = false;
+	$scope.creditors = null;
+	$scope.creditorName = '';
+	$scope.address = '';
+	$scope.contact = '';
+	$scope.email = '';
+	$scope.dueDate = new Date();
+
+	var warehouse = LoadProduct.getAll();
+
+	var creditors = CreditorInfo.get();
+
+	warehouse.then( function ( result ) {
+		$scope.allProducts = result;
+		console.log($scope.allProducts);
+	});
+
+	creditors.then( function ( result ) {
+		$scope.creditors = result;
+		console.log($scope.creditors);
+	});
+
+	$scope.hideModalAndShowCreditPurchaseModal = function () {
+		$('.new-creditor-modal').modal( 'hide' );
+		$('.credit-purchase-modal').modal( 'show' );
+	}
+
+	$scope.testone = function() {
+
+		console.log('test pass');
+		$scope.selectedRow = null;
+		$scope.activeEditID = null;
+	}
 
 	$scope.addToCart = function() {
 
@@ -21,14 +57,23 @@ app.controller('BillingController', function($scope) {
 		document.getElementById('edit-item').setAttribute('hidden', null);
 		document.getElementById('delete-item').setAttribute('hidden', null);
 
-		for (var i = $scope.cart.length - 1; i >= 0; i--) {
-			if( $scope.cart[i].item === $scope.product_id ) {
-				existing_flag = true;
-				index = i;
-				break;
-			}
-			else { existing_flag = false; }
+		var product_details = $scope.product_id.split(' ');
+		var product_name = '';
+
+		for (var i = 1; i < product_details.length; i++ ) {
+			product_name = product_name + " " + product_details[i];
 		};
+
+		if ( $scope.cart.length > 0 ) {
+			for (var i = $scope.cart.length - 1; i >= 0; i--) {
+				if( $scope.cart[i].item === product_details[0] ) {
+					existing_flag = true;
+					index = i;
+					break;
+				}
+				else { existing_flag = false; }
+			};
+		}
 
 		if( existing_flag ) {
 			$scope.updateCart(index);
@@ -51,7 +96,14 @@ app.controller('BillingController', function($scope) {
 
 	$scope.createNewCartContent = function() {
 		console.log('New Cart Item');
-		$scope.cart.push( {item: $scope.product_id, qty: $scope.qty, unit_price: 10} );
+		var product_details = $scope.product_id.split(' ');
+		var product_name = '';
+
+		for (var i = 1; i < product_details.length; i++ ) {
+			product_name = product_name + " " + product_details[i];
+		};
+
+		$scope.cart.push( {item: product_details[0], name: product_name, qty: $scope.qty, unit_price: 10} );
 		
 		$scope.updateTotalBill();
 
@@ -69,6 +121,7 @@ app.controller('BillingController', function($scope) {
 		$scope.selectedRow = row;
 		$scope.activeEditID = elem.item.item;
 		$scope.showEditActions();
+		event.stopPropagation();
 	}
 
 	$scope.showEditActions = function () {
@@ -84,9 +137,42 @@ app.controller('BillingController', function($scope) {
 		}
 	}
 
+	$scope.checkout = function ( creditflag, dueDate ) {
+
+		// console.log( $('#creditor_id').val() );
+
+		Checkout.process( $scope.cart, creditflag, $scope.dueDate, $('#creditor_id').val() );
+
+		$scope.cart = [];
+		$scope.product_id = '';
+		$scope.creditor_id = '';
+		$scope.product_name = '';
+		$scope.qty = 0;
+		$scope.total_bill = 0;
+		$scope.hiddenOrNot = 'hidden';
+		$scope.selected_tr = '';
+
+		$scope.hideModal();
+
+
+
+	}
+
+	$scope.newCreditor = function () {
+		$('.credit-purchase-modal').modal( 'hide' );
+		$('.new-creditor-modal').modal( 'show' );
+	}
+
+	$scope.addNewCreditor = function () {
+		CreditorAdd.process( $scope.creditorName, $scope.address, $scope.contact, $scope.email );
+	}
+
 	$scope.hideModal = function () {
 		console.log('Modal Hide');
 		$('.delete-modal').modal( 'hide' );
+		$('.edit-modal').modal( 'hide' );
+		$('.credit-purchase-modal').modal( 'hide' );
+		$('.new-creditor-modal').modal( 'hide' );
 	}
 
 	$scope.validateAndEdit = function () {
@@ -97,8 +183,17 @@ app.controller('BillingController', function($scope) {
 
 		else {
 			console.log($scope.product_id_modal);
+
+			var product_details = $scope.product_id_modal.split(' ');
+			var product_name = '';
+
+			for (var i = 1; i < product_details.length; i++ ) {
+				product_name = product_name + " " + product_details[i];
+			};
+
 			for (var i = $scope.cart.length - 1; i >= 0; i--) {
-				if( $scope.cart[i].item === $scope.product_id_modal ) {
+				if( $scope.cart[i].item === product_details[0] ) {
+					console.log('yo');
 					$scope.cart[i].qty = $scope.qty_modal;
 					break;
 				}
@@ -109,7 +204,7 @@ app.controller('BillingController', function($scope) {
 		}
 	}
 
-	$scope.deleteEntry = function () {
+	$scope.deleteEntry = function ( elem ) {
 		for (var i = $scope.cart.length - 1; i >= 0; i--) {
 			if( $scope.cart[i].item === $scope.activeEditID ) {
 				$scope.cart.splice( i, 1 );

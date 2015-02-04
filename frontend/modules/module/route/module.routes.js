@@ -11,5 +11,23 @@ app.config( ['$routeProvider',
 		}).when( '/Billing', {
 			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
 			controller: 'BillingController'
+		}).when( '/Billing', {
+			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
+			controller: 'BillingController'
+		}).when( '/Inventory', {
+			templateUrl: './frontend/modules/Inventory/view-partials/main-view.html',
+			controller: 'InventoryController'
+		}).when( '/Inventory', {
+			templateUrl: './frontend/modules/Inventory/view-partials/main-view.html',
+			controller: 'InventoryController'
+		}).when( '/Billing', {
+			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
+			controller: 'BillingController'
+		}).when( '/Inventory', {
+			templateUrl: './frontend/modules/Inventory/view-partials/main-view.html',
+			controller: 'InventoryController'
+		}).when( '/Billing', {
+			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
+			controller: 'BillingController'
 		});
 }]);

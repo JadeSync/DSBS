@@ -4,6 +4,10 @@
 	width: 200px;
 }
 
+.creditorsfield {
+  padding-left: 10px;
+}
+
 #new-product:hover {
 	background-color: lightgrey;
 }
@@ -47,4 +51,42 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color: rgba(40,40,0,0.3);
   width: 4px;
+}
+
+body {
+  background-color: rgb(35, 35, 63)
+}
+
+.panel-body {
+  background-color: rgb(128, 187, 192);
+}
+
+.panel-default {
+  border-color: #6A6A90;
+  background-color: rgb(128, 187, 192);
+}
+
+hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid #80BBC0;
+}
+
+.panel-default>.panel-heading {
+  color: #4D3A17;
+  background-color: #8BDDB4;
+  border-color: #6A6A90;
+}
+
+#bill_table {
+  color: rgb(119, 47, 21);
+}
+
+span.text-muted {
+  color: #772F15;
+}
+
+.total-bill {
+  color: rgb(119, 47, 21); 
 }
