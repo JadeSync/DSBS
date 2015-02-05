@@ -20,6 +20,8 @@ app.controller('BillingController', function($scope, LoadProduct, Checkout, Cred
 	$scope.contact = '';
 	$scope.email = '';
 	$scope.dueDate = new Date();
+	$scope.notification = [];
+	$scope.notifcounter = 'No notifications yet'
 
 	var warehouse = LoadProduct.getAll();
 
@@ -48,6 +50,29 @@ app.controller('BillingController', function($scope, LoadProduct, Checkout, Cred
 	}
 
 	$scope.addToCart = function() {
+
+		// valdation ko kaam baki cha. ani printer ko
+
+		for (var i = $scope.allProducts.length - 1; i >= 0; i--) {
+
+			if( $scope.allProducts[i].p_id == $scope.product_id.split(' ')[0] ) {
+				if( $scope.allProducts[i].p_count < $scope.qty ) {
+					console.log( 'Only '+ $scope.allProducts[i].p_count +' units in stock.'  );
+					$scope.notification.push( 'Only '+ $scope.allProducts[i].p_count +' units in stock.' );
+
+					if( typeof( $scope.notifcounter ) == 'string' ) {
+						$scope.notifcounter = 1;
+					}
+
+					else {
+						$scope.notifcounter += 1;
+					}
+
+					return false;
+				}
+			}
+
+		};
 
 		var existing_flag = false;
 		var index = 0;
@@ -151,6 +176,8 @@ app.controller('BillingController', function($scope, LoadProduct, Checkout, Cred
 		$scope.total_bill = 0;
 		$scope.hiddenOrNot = 'hidden';
 		$scope.selected_tr = '';
+
+		console.log( $scope.allProducts );
 
 		$scope.hideModal();
 
