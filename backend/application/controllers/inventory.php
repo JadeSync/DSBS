@@ -20,16 +20,28 @@ class Inventory extends CI_Controller {
 		}
 	}
 
+	public function newCategory() {
+		$postdata = file_get_contents("php://input");
+    	$request = json_decode($postdata);
+
+
+		$result = $this->inventoryMDL->newCategory( $postdata );
+
+		// echo ;
+	}
+
 	public function newProduct() {
 		$postdata = file_get_contents("php://input");
     	$request = json_decode($postdata);
 
-    	if( ! $this->inventoryMDL->newProduct( $request ) ) {
+    	$result = $this->inventoryMDL->newProduct( $request );
+
+    	if( ! $result ) {
     		echo "failure";
     	}
 
     	else {
-    		echo "success";
+    		echo json_encode($result);
     	}
 	}
 

@@ -29,5 +29,8 @@ app.config( ['$routeProvider',
 		}).when( '/Billing', {
 			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
 			controller: 'BillingController'
+		}).when( '/Billing', {
+			templateUrl: './frontend/modules/Billing/view-partials/main-view.html',
+			controller: 'BillingController'
 		});
 }]);

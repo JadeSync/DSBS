@@ -81,6 +81,18 @@ class BillingMDL extends CI_Model {
 					return '500 ERROR';
 				}
 
+				/**
+				 * tbl_product
+				 */
+
+				foreach ($cart->data as $item) {
+					$query = "UPDATE tbl_product SET p_count = p_count - ". $item->qty ." WHERE p_id = '". $item->item ."';";
+					
+					if ( ! $this->db->query( $query ) ) {
+						return '500 ERROR';
+					}					
+				}
+
 				return '200 OK';
 
 			}
@@ -142,6 +154,18 @@ class BillingMDL extends CI_Model {
 
 				if ( ! $this->db->query( $query ) ) {
 					return '500 ERROR';
+				}
+
+				/**
+				 * tbl_product
+				 */
+
+				foreach ($cart->data as $item) {
+					$query = "UPDATE tbl_product SET p_count = p_count - ". $item->qty ." WHERE p_id = '". $item->item ."';";
+					
+					if ( ! $this->db->query( $query ) ) {
+						return '500 ERROR';
+					}					
 				}
 
 				return '200 OK';

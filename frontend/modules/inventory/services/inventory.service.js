@@ -22,9 +22,25 @@ services.factory( 'NewProduct', function ($http) {
 				url: 'backend/inventory/newProduct',
 				data: cart
 			}).then( function ( result ) {
-				console.log(result.data);
+				return result.data;
 			}, function ( err ) {
 				console.log(err);
+			});
+		}
+	}
+});
+
+services.factory( 'CategoryService', function ($http) {
+	return {
+		newCategory: function ( categoryName ) {
+			return $http({
+				method: 'POST',
+				url: 'backend/inventory/newCategory',
+				data: categoryName
+			}).then( function ( result ) {
+				console.log( "Success - " + result.data );
+			}, function ( err ) {
+				console.log( err )
 			});
 		}
 	}

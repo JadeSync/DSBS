@@ -1,5 +1,9 @@
 <!-- <div class="container"> -->
 
+<script type="text/javascript" src="./frontend/assets-common/js/bootstrap-toggle.js"></script>
+
+<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/bootstrap-toggle.css" />
+
 <script type="text/javascript">
 
 	$(document).ready( function () {
@@ -74,7 +78,15 @@
 			<div class="col-md-4">
 				<div class="panel panel-default" style="max-height: 200px; height: 200px;">
 				  <div class="panel-body">
-				  	<span class="text-muted">No notifications yet</span>
+				  	<span class="text-muted">Notifications <span class="badge"> {{notifcounter}}</span></span>
+
+			  		<ul class="list" ng-repeat="notific in notification" >
+			  			<li>
+			  				{{notific}}
+			  			</li>
+			  		</ul>
+
+
 				  </div>
 				</div>
 			</div>
@@ -87,7 +99,7 @@
 				  </div>
 
 				  <div class="checkbox" style="margin-left: 5px;">
-				      <label><input type="checkbox" id="creditflag" value="" >Credit Purchase</label>
+				      <input type="checkbox" id="creditflag" value="" >
 				  </div>
 
 
@@ -95,10 +107,6 @@
 			</div>
 		</div>
 	</div>
-
-	
-	
-
 
 
 	<div class="modal fade edit-modal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">

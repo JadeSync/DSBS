@@ -19,10 +19,12 @@
 	<script type="text/javascript" src="./frontend/modules/module/controllers/module.controller.js"></script>
 
 	<script type="text/javascript" src="./frontend/assets-common/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./frontend/assets-common/js/bootstrap-toggle.js"></script>
 
 	<script type="text/javascript" src="./frontend/modules/module/route/module.routes.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/bootstrap-toggle.css" />
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/select2.css" />
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/jquery.dataTables.min.css" />
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/mystyle.css" />
@@ -35,7 +37,6 @@
 
 		document.getElementById('edit-item').setAttribute('hidden', 'hidden');
 		document.getElementById('delete-item').setAttribute('hidden', 'hidden');
-
 
 		var scope = $('#BillingControllerSector').scope();
 		scope.testone();
@@ -74,6 +75,9 @@
 
 
 	<dynamicLoads>
+		<script type='text/javascript' src='./frontend/modules/Billing/route/Billing.routes.js'></script>
+		<script type='text/javascript' src='./frontend/modules/Billing/services/Billing.service.js'></script>
+		<script type='text/javascript' src='./frontend/modules/Billing/controllers/Billing.controller.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Billing/route/Billing.routes.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Billing/services/Billing.service.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Billing/controllers/Billing.controller.js'></script>
