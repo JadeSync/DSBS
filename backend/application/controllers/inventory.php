@@ -30,6 +30,33 @@ class Inventory extends CI_Controller {
 		// echo ;
 	}
 
+	public function edit() {
+		$postdata = file_get_contents("php://input");
+		$request = json_decode( $postdata );
+
+		$result = $this->inventoryMDL->edit( $request );
+
+		echo json_encode( $result );
+	}
+
+	public function depl() {
+		$postdata = file_get_contents("php://input");
+		$request = json_decode( $postdata );
+
+		$result = $this->inventoryMDL->depl ( $request );
+
+		echo json_encode( $result );
+	}
+
+	public function repl() {
+		$postdata = file_get_contents("php://input");
+		$request = json_decode( $postdata );
+
+		$result = $this->inventoryMDL->repl( $request );
+
+		echo json_encode( $result );
+	}
+
 	public function newProduct() {
 		$postdata = file_get_contents("php://input");
     	$request = json_decode($postdata);

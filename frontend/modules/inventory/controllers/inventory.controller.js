@@ -1,4 +1,4 @@
-app.controller( 'InventoryController', function( $scope, CategoryService, InventoryService, NewProduct, Categories ) {
+app.controller( 'InventoryController', function( $scope, EditService, DepleteService, ReplineshService, CategoryService, InventoryService, NewProduct, Categories ) {
 
 	// console.log(InventoryService.test());
 
@@ -15,6 +15,10 @@ app.controller( 'InventoryController', function( $scope, CategoryService, Invent
 	};
 
 	$scope.categoryName = '';
+	$scope.rep_prod_id = '';
+	$scope.rep_prod_name = '';
+	$scope.rep_prod_qty = 0;
+	$scope.rep_prod_remark = '';
 
 	var categories = Categories.getAll();
 
@@ -31,6 +35,28 @@ app.controller( 'InventoryController', function( $scope, CategoryService, Invent
 		console.log($scope.warehouse);
 	});
 
+	$scope.edit = function () {
+
+		EditService.edit( $scope.rep_prod_id, $scope.rep_prod_name );
+		$scope.hideModal();
+		location.reload( true );
+	}
+
+	$scope.showEditModal = function ( elem ) {
+		$scope.rep_prod_name = elem.item.p_name;
+		$scope.rep_prod_id = elem.item.p_id;
+
+		$('.edit').modal( 'show' );
+	}
+
+	$scope.repl = function () {
+		
+		ReplineshService.repl( $scope.rep_prod_qty, $scope.rep_prod_remark, $scope.rep_prod_id );
+		$scope.hideModal();
+		location.reload( true );
+
+	}
+
 	$scope.addThisCategory = function () {
 		CategoryService.newCategory( $scope.categoryName );
 		location.reload( true );
@@ -39,6 +65,9 @@ app.controller( 'InventoryController', function( $scope, CategoryService, Invent
 	$scope.hideModal = function () {
 		$('.addNewProduct').modal('hide');
 		$('.addNewCategory').modal('hide');
+		$('.replinesh').modal( 'hide' );
+		$('.deplete').modal( 'hide' );
+		$('.edit').modal( 'hide' );
 	}
 
 	$scope.hideModalAndShow = function () {
@@ -61,6 +90,24 @@ app.controller( 'InventoryController', function( $scope, CategoryService, Invent
 	$scope.showReplineshModal = function( elem ) {
 		var rep_prod_id = elem.item.p_id;
 		console.log( rep_prod_id );
+
+		$scope.rep_prod_name = elem.item.p_name;
+		$scope.rep_prod_id = rep_prod_id;
+
+		$('.replinesh').modal( 'show' );
+	}
+
+	$scope.showDepleteModal = function ( elem ) {
+		$scope.rep_prod_name = elem.item.p_name;
+		$scope.rep_prod_id = elem.item.p_id;
+
+		$('.deplete').modal( 'show' );
+	}
+
+	$scope.depl = function () {
+		DepleteService.depl( $scope.rep_prod_qty, $scope.rep_prod_remark, $scope.rep_prod_id );
+		$scope.hideModal();
+		location.reload( true );
 	}
 
 	$scope.newCategory = function () {

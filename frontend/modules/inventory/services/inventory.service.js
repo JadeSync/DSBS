@@ -60,3 +60,51 @@ services.factory( 'Categories', function ($http) {
 		}
 	}
 });
+
+services.factory( 'ReplineshService', function ( $http ) {
+	return {
+		repl: function ( qty, remark, id ) {
+			return $http({
+				method: 'POST',
+				url: 'backend/inventory/repl',
+				data: { qty: qty, remark: remark, id: id }
+			}).then( function ( result ) {
+				console.log( result.data );
+			}, function ( err ) {
+				console.log( err ); 
+			});
+		}
+	}
+});
+
+services.factory ( 'EditService', function ( $http ) {
+	return {
+		edit: function ( id, name ) {
+			return $http({
+				method: 'POST',
+				url: 'backend/inventory/edit',
+				data: { id: id, name: name }
+			}).then( function ( result ) {
+				console.log( result.data );
+			}, function ( err ) {
+				console.log( err );
+			});
+		}
+	}
+});
+
+services.factory( 'DepleteService', function ( $http ) {
+	return {
+		depl: function ( qty, remark, id ) {
+			return $http({
+				method: 'POST',
+				url: 'backend/inventory/depl',
+				data: { qty: qty, remark: remark, id: id }
+			}).then( function ( result ) {
+				console.log( result.data );
+			}, function ( err ) {
+				console.log( err );
+			});
+		}
+	}
+});

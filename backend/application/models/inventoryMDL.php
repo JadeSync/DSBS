@@ -17,6 +17,22 @@ class InventoryMDL extends CI_Model {
 
 	}
 
+	public function edit ( $data ) {
+		$query = "UPDATE tbl_product SET p_name = '". $data->name ."' WHERE p_id = '". $data->id ."';";
+		return $this->db->query( $query );
+	}
+
+	public function depl( $data ) {
+		$query = "UPDATE tbl_product SET p_count = p_count - ". $data->qty ." WHERE p_id = '". $data->id ."';" ;
+		return $this->db->query( $query );
+		// return $query;
+	}
+
+	public function repl( $data ) {
+		$query = "UPDATE tbl_product SET p_count = p_count + ". $data->qty ." WHERE p_id = '". $data->id ."';" ;
+		return $this->db->query( $query );
+	}
+
 	public function newCategory( $categoryName ) {
 		$query = "SELECT count(c_id) AS count FROM tbl_product_category;";
 
