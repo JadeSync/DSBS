@@ -1,0 +1,61 @@
+<div class="container">
+	<div class="row-fluid" style="margin-left: -30px; margin-right: 30px;">
+		<div class="col-md-12">
+
+			<div class="panel panel-default" style="max-height: 420px; height: 420px;">
+				<div class="panel-body">
+
+					<input type="button" class="btn btn-success" value="Add New" ng-click="showNewUserModal()" /> <br /> <br />
+
+					<table class="table table-hover">
+
+						<tr ng-repeat="user in userList">
+							<td>
+								<img src="./frontend/assets-common/images/user.png" style="height: 80px; width: 80px;">{{user.u_first_name}}
+							</td>
+							<td>
+								Employeed since {{user.u_create_date}}
+							</td>
+						</tr>
+
+					</table>
+
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>
+
+<div class="modal fade addUser-modal" tabindex="-1" role="dialog" aria-labelledby="addUser-modal" aria-hidden="true">
+  	<div class="modal-dialog modal-sm">
+    	<div class="modal-content">
+      		<div class="row-fluid">
+
+      			<div class="panel panel-primary">
+
+      				<div class="panel-heading">
+      					<h3 class="panel-title">Create a new user</h3>	
+      				</div>
+
+      				<div class="panel-body">
+      					<div class="row-fluid">
+      						<input class="form-control" type="text"ng-model="username" placeholder="Username" required /> <br />
+      						<input class="form-control" type="text"ng-model="firstname" placeholder="First Name" required /> <br />
+      						<input class="form-control" type="text"ng-model="lastname" placeholder="Last Name" required /> <br />
+      						<select class="form-control" placeholder="aa"ng-model="usertype">
+      							<option>SUP</option>
+      							<option>CAS</option>
+      						</select> <br />
+      						<input class="form-control" type="password"ng-model="pwd" placeholder="Password" required /> <br />
+      					</div>
+
+      					<div class="row-fluid">
+	      					<img src="./frontend/assets-common/images/tick.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Confirm" ng-click="createNow()"/>
+				    		<img src="./frontend/assets-common/images/wrong.png" style="height: 45px; width: 45px; padding-left: 10px;" title="Cancel" ng-click="hideModal()"/>
+				    	</div>
+      				</div>
+      			</div>
+		    </div>
+    	</div>
+  	</div>
+</div>

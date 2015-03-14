@@ -16,7 +16,13 @@ class Billing extends CI_Controller {
 		$postdata = file_get_contents("php://input");
     	$cart = json_decode($postdata);
 
+    	$data[ 'cart' ] = $cart;
+
     	$db_reply = $this->BillingMDL->checkout( $cart );
+
+    	$this->load->helper('pdf_helper');
+
+    	$this->load->view( 'pdfbill', $data );
 
     	echo json_encode( $db_reply );
 	}
