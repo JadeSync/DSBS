@@ -10,6 +10,8 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 	$scope.selectedModule = null;
 	$scope.selectedModuleID = null;
 	$scope.isCollapsed = false;
+
+	$scope.usr_name = localStorage.getItem('u_name');
 	// $scope.modules = ModuleService.getModules();
 
 	var moduleDataPromise = ModuleService.modules();

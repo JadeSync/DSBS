@@ -30,6 +30,29 @@
 	<link rel="stylesheet" type="text/css" href="./frontend/assets-common/style-files/mystyle.css" />
 
 	<script type="text/javascript">
+
+	function logout() {
+		localStorage.clear();
+		location.reload( true );
+	}
+
+		if ( !localStorage.getItem('loggedInFlag') ) {
+			window.location.assign( 'http://localhost/dsbs/authentication.html' );
+		} else {
+			
+			var time_gap = (new Date($.now()) - new Date(localStorage.getItem( 'logged_time' )))/1000/60/60;
+
+			if( time_gap > 0.5 ) {
+				localStorage.clear();
+				location.reload( true );
+			}
+
+			console.log( time_gap );
+
+		}
+	</script>
+
+	<script type="text/javascript">
 		var mainContainerClicked =  function () {
 		// if ( $scope.clicked ) {
 		// 	$scope.changeFlag();
@@ -56,7 +79,21 @@
 				  		<section ng-controller="ModuleController">
 						    
 						    <ul class="nav nav-pills">
-							  	<li role="presentation" class="active" ng-repeat="module in installedModules"><a ng-href="#/{{module.module_name}}">{{module.module_name}}</a></li>			  		
+							  	<li role="presentation" class="active" ng-repeat="module in installedModules"><a ng-href="#/{{module.module_name}}">{{module.module_name}}</a></li>	
+
+							  	<div class="btn-group">
+
+								  	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding: 9px 15px; margin-left: 2px;">
+								    {{usr_name}} <span class="caret"></span>
+								  	</button>
+
+								  	<ul class="dropdown-menu" role="menu">
+								    	<li><a href="#">Change Password</a></li>
+								    	<li onclick="logout()"><a>Logout</a></li>
+								  	</ul>
+
+								</div>
+
 							</ul>
 
 						</section>
@@ -78,30 +115,6 @@
 		<script type='text/javascript' src='./frontend/modules/User/route/User.routes.js'></script>
 		<script type='text/javascript' src='./frontend/modules/User/services/User.service.js'></script>
 		<script type='text/javascript' src='./frontend/modules/User/controllers/User.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/route/User.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/services/User.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/controllers/User.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/route/Inventory.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/services/Inventory.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/controllers/Inventory.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/route/User.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/services/User.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/User/controllers/User.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/route/Billing.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/services/Billing.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/controllers/Billing.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/route/Billing.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/services/Billing.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/controllers/Billing.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/route/Inventory.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/services/Inventory.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/controllers/Inventory.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/route/Billing.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/services/Billing.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Billing/controllers/Billing.controller.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/route/Inventory.routes.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/services/Inventory.service.js'></script>
-		<script type='text/javascript' src='./frontend/modules/Inventory/controllers/Inventory.controller.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Inventory/route/Inventory.routes.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Inventory/services/Inventory.service.js'></script>
 		<script type='text/javascript' src='./frontend/modules/Inventory/controllers/Inventory.controller.js'></script>

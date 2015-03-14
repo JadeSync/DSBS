@@ -25,6 +25,11 @@ class UserMDL extends CI_Model {
 		return $this->db->query( $query );
 	}
 
+	public function login ( $data ) {
+		$query = "SELECT * FROM tbl_user WHERE u_name='". $data[ 'username' ] ."' AND u_password='". $data[ 'pwd' ] ."';";
+		return $this->db->query( $query )->result();
+	}
+
 }
 
 /* End of file userMDL.php */

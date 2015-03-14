@@ -23,6 +23,14 @@ class User extends CI_Controller {
 		echo json_encode( $result );
 
 	}
+
+	public function login() {
+
+		$result = $this->UserMDL->login( $_POST );
+
+		echo json_encode($result);
+
+	}
 }
 
 /* End of file user.php */
