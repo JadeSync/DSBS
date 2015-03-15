@@ -16,6 +16,10 @@ app.controller ( 'UserController', function ( $scope, UserService, CreateUserSer
 		console.log($scope.userList);
 	});
 
+	$scope.testone = function () {
+		alert( 'yo' );
+	}
+
 	$scope.showNewUserModal = function () {
 		$('.addUser-modal').modal( 'show' );
 	} 

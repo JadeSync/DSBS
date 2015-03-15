@@ -1,5 +1,7 @@
 app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirService, ModuleUninstallService, ModuleInstallService) {
 
+	$(".se-pre-con").fadeIn("slow");
+
 	console.log( 'INFO: ModuleController loaded' );
 
 	$scope.modules = [];
@@ -101,5 +103,7 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 			console.log("Installation Failed.");
 		}
 	}
+
+	$(".se-pre-con").fadeOut("slow");
 
 });

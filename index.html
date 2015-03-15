@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html ng-app="app">
 <head>
 	<title>Test</title>
@@ -31,10 +30,81 @@
 
 	<script type="text/javascript">
 
-	function logout() {
-		localStorage.clear();
-		location.reload( true );
-	}
+		function logout() {
+			$(".se-pre-con").fadeIn("slow");
+			localStorage.clear();
+			location.reload( true );
+		}
+
+		function changePwdModal() {
+
+			$('.changePwdModal').modal( 'show' );
+
+		}
+
+		function hideModal() {
+
+			$('.changePwdModal').modal( 'hide' );
+ 
+		}
+
+		function validateAndSend() {
+			
+			if( $('#txtPwd').val() == "" || $('#txtPwdConfirm').val() == "" || $('#txtPwdOld').val() == "" ) {
+
+				alert( 'Please fill up the form.' );
+
+			}
+
+			else {
+
+				if( $('#txtPwd').val() != $('#txtPwdConfirm').val() ) {
+
+					alert( 'Please reenter.' );
+
+				}
+
+				else {
+
+					$.ajax({
+					
+						method: "POST",
+					  	url: "backend/user/changePwd",
+					  	data: { 
+					  			oldpwd: $('#txtPwdOld').val(), 
+					  			newpwd: $('#txtPwd').val(),
+					  			userid: localStorage.getItem( 'u_id' ) 
+					  		}
+
+					}).done(function( msg ) {
+
+						if( msg.length <= 2 ) {
+							$(".se-pre-con").fadeOut("slow");
+							console.log( 'Invalid' );
+						}
+
+						else {
+							console.log( msg );
+							if( msg != 'true' ) {
+								alert( 'Incorrect existing password.' );
+							}
+
+							else {
+								
+								localStorage.clear();
+								location.reload( true );
+
+							}
+							
+						}
+						
+
+					 });
+				}
+
+			}
+
+		}
 
 		if ( !localStorage.getItem('loggedInFlag') ) {
 			window.location.assign( 'http://localhost/dsbs/authentication.html' );
@@ -68,6 +138,10 @@
 </head>
 <body onclick="mainContainerClicked()">
 
+	<div class="se-pre-con" hidden>
+		
+	</div>
+
 	<div class="container main-body" id="MainContainer">
 		<div class="row-fluid">
 			<div class="col-md-12">
@@ -88,7 +162,7 @@
 								  	</button>
 
 								  	<ul class="dropdown-menu" role="menu">
-								    	<li><a href="#">Change Password</a></li>
+								    	<li onclick="changePwdModal()"><a>Change Password</a></li>
 								    	<li onclick="logout()"><a>Logout</a></li>
 								  	</ul>
 
@@ -109,6 +183,53 @@
 			</div>
 		</div>
 	</div>
+
+
+	<div class="modal fade changePwdModal" tabindex="-1" role="dialog" aria-labelledby="changePwdModal" aria-hidden="true" style="width: 100%; padding-bottom: 0px;">
+	  	<div class="modal-dialog modal-sm">
+	    	<div class="modal-content">
+		    	<div class="panel panel-danger">
+				  	<div class="panel-heading">
+				    	<h3 class="panel-title panel-danger">Change Password</h3>
+				  	</div>
+				  	<div class="panel-body">		    	
+
+						<div class="input-group">
+							
+							<span class="input-group-addon" id="basic-addon1"><b>*</b></span>
+							<input type="password" class="form-control" placeholder="Existing Password" aria-describedby="basic-addon1" id="txtPwdOld" />
+
+						</div>
+
+						<br />		    	
+
+						<div class="input-group">
+							
+							<span class="input-group-addon" id="basic-addon1"><b>*</b></span>
+							<input type="password" class="form-control" placeholder="New Password" aria-describedby="basic-addon1" id="txtPwd" />
+
+						</div>
+
+						<br />		    	
+
+						<div class="input-group">
+							
+							<span class="input-group-addon" id="basic-addon1"><b>*</b></span>
+							<input type="password" class="form-control" placeholder="Confirm Password" aria-describedby="basic-addon1" id="txtPwdConfirm" />
+
+						</div>
+
+						<br />
+
+						<input type="button" class="btn btn-success" onclick="validateAndSend()" value="Change" />
+						<input type="button" class="btn btn-danger" onclick="hideModal()" value="Cancel" style="margin-left: 5px;" />
+
+				  	</div>
+				</div>
+	    	</div>
+	  	</div>
+	</div>
+
 
 
 	<dynamicLoads>

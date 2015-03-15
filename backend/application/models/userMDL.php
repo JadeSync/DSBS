@@ -14,6 +14,22 @@ class UserMDL extends CI_Model {
 		return $this->db->query( $query )->result();
 	}
 
+	public function changePwd( $data ) {
+
+		$query = "SELECT u_password FROM tbl_user WHERE u_id='". $data['userid'] ."';";
+
+		$pwd = $this->db->query( $query )->result()[0];
+
+		if( $pwd->u_password != $data[ 'oldpwd' ] ) {
+			return false;
+		}
+
+		else {
+			$query = "UPDATE tbl_user SET u_password='". $data['newpwd'] ."' WHERE u_id='". $data['userid'] ."';";
+			return $this->db->query( $query );
+		}
+	}
+
 	public function createNow( $data ) {
 
 		$count = $this->db->query( "SELECT count(u_id) AS count FROM tbl_user;" )->result()[0]->count + 1;

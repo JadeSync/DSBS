@@ -13,6 +13,14 @@ class User extends CI_Controller {
 
 	}
 
+	public function changePwd() {
+
+		$result = $this->UserMDL->changePwd( $_POST );
+
+		echo json_encode($result);
+
+	}
+
 	public function createNow() {
 
 		$postdata = file_get_contents( "php://input" );
