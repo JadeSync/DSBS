@@ -1,4 +1,5 @@
 app.controller ( 'UserController', function ( $scope, UserService, CreateUserService ) {
+
 	$scope.userList = [];
 
 	$scope.username = '';

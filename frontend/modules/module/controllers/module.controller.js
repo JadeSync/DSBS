@@ -20,6 +20,7 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 
 	moduleDataPromise.then( function (result) {
 		$scope.modules = result;
+		console.log($scope.modules);
 	});
 
 	var moduleDirDataPromise = ModuleDirService.moduleDirs();
@@ -28,6 +29,13 @@ app.controller( 'ModuleController', function ($scope, ModuleService, ModuleDirSe
 		$scope.moduleDirs = result;
 		for (var i = $scope.moduleDirs.length - 1; i >= 0; i--) {
 			if ( $scope.moduleDirs[i].module_installed_flag == 'true' ) {
+
+				if ( localStorage.getItem( 'u_type' ) != 'SUP' ) {
+
+					if ( $scope.moduleDirs[i].module_name != 'Billing' ) {
+						continue;
+					}
+				}
 
 				$scope.installedModules.push({
 					module_id: $scope.moduleDirs[i].module_id,

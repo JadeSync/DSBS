@@ -9,8 +9,19 @@ services.factory( 'ModuleService', function ( $http ) {
 				method: 'GET',
 				url: 'backend/modules/getModules'
 			}).then( function ( result ) {
+				
 				console.log("INFO: response received");
+
+				if ( localStorage.getItem( 'u_type' ) != 'SUP' ) {
+					for (var i = result.data.length - 1; i >= 0; i--) {
+						if( result.data[i].module_name != "Billing" ){
+							result.data.splice(i, 1);
+						}
+					};
+				}
+
 				return result.data;
+
 			}, function ( result ) {
 				console.log('failure');
 			});
