@@ -1,10 +1,10 @@
 1. on billing module
 		
-		. product quantity depletion anomaly. threshold cross message in one attempt shown, multiple attempt not shown
+		X . product quantity depletion anomaly. threshold cross message in one attempt shown, multiple attempt not shown
 		. toggle switch not working
-		. same notification not showing twice. error thrown
+		X . same notification not showing twice. error thrown
 		. bill pdf shown in reader, not in browser
-		. unit price anomaly ( showing 10 for all )
+		X . unit price anomaly ( showing 10 for all )
 
 
 

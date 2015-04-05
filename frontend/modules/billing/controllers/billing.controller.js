@@ -70,6 +70,10 @@ app.controller('BillingController', function($scope, LoadProduct, Checkout, Cred
 
 					return false;
 				}
+
+				$scope.allProducts[i].p_count = $scope.allProducts[i].p_count - $scope.qty;
+				// $scope.
+
 			}
 
 		};
@@ -123,12 +127,13 @@ app.controller('BillingController', function($scope, LoadProduct, Checkout, Cred
 		console.log('New Cart Item');
 		var product_details = $scope.product_id.split(' ');
 		var product_name = '';
+		var selling_price = $('#'+ product_details[0]).attr( 'selling-price' );
 
 		for (var i = 1; i < product_details.length; i++ ) {
 			product_name = product_name + " " + product_details[i];
 		};
 
-		$scope.cart.push( {item: product_details[0], name: product_name, qty: $scope.qty, unit_price: 10} );
+		$scope.cart.push( {item: product_details[0], name: product_name, qty: $scope.qty, unit_price: selling_price} );
 		
 		$scope.updateTotalBill();
 

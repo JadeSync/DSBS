@@ -43,7 +43,7 @@
 				  	<div class="container">
 				  		<div class="row-fluid">
 				  			<select selectplugin="" ng-model="product_id" id="product_id" style="width: inherit; min-width: 250px;">
-						        <option  ng-repeat="product in allProducts" value="{{product.p_id}} {{product.p_name}}">{{product.p_name}}</option>
+						        <option  ng-repeat="product in allProducts" value="{{product.p_id}} {{product.p_name}}" selling-price= "{{product.p_selling_price}}" id="{{product.p_id}}">{{product.p_name}}</option>
 						    </select>
 						    <input ng-model="qty" min="1" type="number" style="width: 80px;" id="qty" placeholder="Quantity">
 							<button class="btn btn-primary" id="addToCart" ng-click="addToCart()">Add to cart</button>
@@ -63,7 +63,7 @@
 					  				<tr ng-repeat="item in cart" item-id="{{item.item}}" ng-click="setSelected($index, this)" ng-class="{selected: $index == selectedRow}">
 					  					<td>{{item.name}}</td>
 					  					<td>{{item.qty}}</td>
-					  					<td>10</td>
+					  					<td>{{item.unit_price}}</td>
 					  					<td>{{item.qty * 10}}</td>
 					  				</tr>
 

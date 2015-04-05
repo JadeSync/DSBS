@@ -44,5 +44,8 @@ app.config( ['$routeProvider',
 		}).when( '/User', {
 			templateUrl: './frontend/modules/User/view-partials/main-view.html',
 			controller: 'UserController'
+		}).when( '/Inventory', {
+			templateUrl: './frontend/modules/Inventory/view-partials/main-view.html',
+			controller: 'InventoryController'
 		});
 }]);
